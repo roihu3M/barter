@@ -21,6 +21,8 @@ class Ad(models.Model):
     condition = models.CharField(max_length=6, choices=CONDITION_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     is_disabled = models.BooleanField(default=False)
+    def __init__(self):
+        return str(self.id) + ': ' + str(self.title)
 
 class ExchangeProposal(models.Model):
     ad_sender = models.ForeignKey(Ad, on_delete=models.CASCADE, related_name='%(class)s_ad_sender_requests_created')
