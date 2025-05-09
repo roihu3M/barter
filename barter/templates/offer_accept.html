@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>This is offer accept page!</h3>
+    {% if does_not_exist == True %}
+        <span>Offer doesn't exist</span>
+    {% else %} 
+        {% if can_accept == False %} 
+        <span>Permission denied</span>
+        {% else %}
+        <span>yeah.</span>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'pending_offers' %}">
+        {{ offer_filter }}
+        <button type="submit">Search</button>
+    </form>
+    {% if not_found == True %}
+        <h2>Nothing found</h2>
+    {% else %}
+            <div class="content">
+    <div class="container">
+      <div class="table-responsive custom-table-responsive">
+        <table class="table custom-table">
+          <thead>
+            <tr>  
+              <th scope="col">ID</th>
+              <th scope="col">Sender</th>
+              <th scope="col">Status</th>
+              <th scope="col">Creation date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ad in post %}
+            <tr scope="row">
+                <td>{{ offer.id }}</td>
+                <td>{{ offer.ad_sender.user }}</td>
+                <td>{{ offer.status }}</td>
+                <td>{{ offer.created_at }}</td>
+                <td><a href="/offer/{{ offer.id }}">Watch</a></td>
+            </tr>
+            <tr class="spacer"><td colspan="100"></td></tr>
+        {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+
+  </div>
+        <h4>This is page {{ current_page }} out of {{ pages_count }}</h4>
+        {%if previous_page != 0 %}
+        <a href="/search/?page={{ previous_page }}&prompt={{ prompt }}&category={{ category }}&condition={{ condition }}"><button>Previous page</button></a>
+        {% endif %}
+        {% if next_page <= pages_count %}
+        <a href="/search/?page={{ next_page }}&prompt={{ prompt }}&category={{ category }}&condition={{ condition }}"><button>Next page</button></a>
+        {% endif %}
+    {% endif %}
+{% endblock %}

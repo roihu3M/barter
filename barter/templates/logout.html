@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>This is logout page!</h3>
+    {% if user == 'AnonymousUser' %}
+        <span>Can't log out</span>
+    {% else %}
+        <span>yeah.</span>
+    {% endif %}
+{% endblock %}

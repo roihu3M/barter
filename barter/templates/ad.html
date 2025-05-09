@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if does_exist == False %}
+        <h2>Ad doesn't exist</h2>
+    {%elif is_disabled == True %}
+        <h2>Ad was traded</h2>
+    {% else %}
+        {% if ad.image_url == '' %}
+            {% load static %}
+            <img src="{% static 'not_found.jpg' %}" height="300px", width="300px"></img>
+        {% else %}
+            <img src="{{ ad.image_url }}" height="300px", width="300px"></img>
+        {% endif %}
+            <div class="container">
+      
+
+      <div class="table-responsive custom-table-responsive">
+
+        <table class="table custom-table">
+          <thead>
+            <tr>  
+              <th scope="col">ID</th>
+              <th scope="col">User</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Category</th>
+              <th scope="col">Condition</th>
+              <th scope="col">Creation date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row">
+                <td>{{ ad.id }}</td>
+                <td>{{ ad.user }}</td>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.description }}</td> 
+                <td>{{ ad.category }}</td>
+                <td>{{ ad.condition }}</td> 
+                <td>{{ ad.created_at }}</td>
+            </tr>
+            <tr class="spacer"><td colspan="100"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+        {% if can_edit == True %}
+            <a href="edit"><button>Edit</button></a>
+            <a href="delete"><button>Delete</button></a>
+        {% endif %}
+        {% if can_offer == True %}
+            <a href="make_offer"><button>Offer</button></a>
+        {% endif %}
+    {% endif %}
+{% endblock %}

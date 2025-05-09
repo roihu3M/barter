@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if form.errors %}
+    <p>{{ form.errors.error }}</p>
+    {% endif %}
+    <form action="{% url 'create' %}" method="post">
+        {{ form }}
+        {% csrf_token %}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

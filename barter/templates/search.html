@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'search' %}">
+        {{ search_form }}
+        <button type="submit">Search</button>
+    </form>
+    {% if not_found == True %}
+        <h2>Nothing found</h2>
+    {% else %}
+      <div class="content">
+    <div class="container">
+      <div class="table-responsive custom-table-responsive">
+        <table class="table custom-table">
+          <thead>
+            <tr>  
+              <th scope="col">ID</th>
+              <th scope="col">User</th>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Condition</th>
+              <th scope="col">Creation date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ad in post %}
+            {% if ad.is_disabled %}
+            {% else %}
+            <tr scope="row">
+                <td>{{ ad.id }}</td>
+                <td>{{ ad.user }}</td>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.category }}</td>
+                <td>{{ ad.condition }}</td> 
+                <td>{{ ad.created_at }}</td>
+                <td><a href="/ad/{{ ad.id }}">Watch</a></td>
+            </tr>
+            <tr class="spacer"><td colspan="100"></td></tr>
+            {% endif %}
+        {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+
+  </div>
+        
+        <h2>This is page {{ current_page }} out of {{ pages_count }}</h2>
+        {%if previous_page != 0 %}
+        <a href="/search/?page={{ previous_page }}&prompt={{ prompt }}&category={{ category }}&condition={{ condition }}"><button>Previous page</button></a>
+        {% endif %}
+        {% if next_page <= pages_count %}
+        <a href="/search/?page={{ next_page }}&prompt={{ prompt }}&category={{ category }}&condition={{ condition }}"><button>Next page</button></a>
+        {% endif %}
+    {% endif %}
+{% endblock %}

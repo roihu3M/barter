@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if can_edit == False %}
+        <h2>Permission denied</h2>
+    {% else %}
+        {%if does_not_exist == True %}
+            <h2>Ad doesn't exist</h2>
+        {% else %}
+            {% if form.errors %}
+                <p>{{ form.errors.error }}</p>
+            {% endif %}
+            <form action="{% url 'edit' ad_id %}" method="post">
+                {{ form }}
+                {% csrf_token %}
+                <button type="submit">Submit</button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if does_exist == False %}
+        <span>Offer doesn't exist</span>
+    {% else %}
+    
+    
+        {% if offer.ad_sender.image_url == '' %}
+            {% load static %}
+            <img src="{% static 'not_found.jpg' %}" height="200px", width="200px"></img>
+        {% else %}
+            <img src="{{ offer.ad_sender.image_url }}" height="200px", width="200px"></img>
+        {% endif %}
+        {% if offer.ad_receiver.image_url == '' %}
+            {% load static %}
+            <img src="{% static 'not_found.jpg' %}" height="200px", width="200px"></img>
+        {% else %}
+            <img src="{{ offer.ad_receiver.image_url }}" height="200px", width="200px"></img>
+        {% endif %}
+        <div class="container">
+      
+
+      <div class="table-responsive custom-table-responsive">
+
+        <table class="table custom-table">
+          <thead>
+            <tr>  
+            <th scope="col"></th>
+              <th scope="col">ID</th>
+              <th scope="col">User</th>
+              <th scope="col">Title</th>
+              <th scope="col">Category</th>
+              <th scope="col">Condition</th>
+              <th scope="col">Creation date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row">
+            <td>You give:</td>
+                   <td>{{ offer.ad_sender.id }}</td>
+            <td>{{ offer.ad_sender.user }}</td>
+            <td>{{ offer.ad_sender.title }}</td>
+            <td>{{ offer.ad_sender.category }}</td>
+            <td>{{ offer.ad_sender.condition }}</td> 
+            <td>{{ offer.ad_sender.created_at }}</td>
+            </tr>
+             <tr class="spacer"><td colspan="100"></td></tr>      
+        <tr>
+            <td>You get:</td>
+            <td>{{ offer.ad_receiver.id }}</td>
+            <td>{{ offer.ad_receiver.user }}</td>
+            <td>{{ offer.ad_receiver.title }}</td>
+            <td>{{ offer.ad_receiver.category }}</td>
+            <td>{{ offer.ad_receiver.condition }}</td> 
+            <td>{{ offer.ad_receiver.created_at }}</td>
+        </tr>
+            <tr class="spacer"><td colspan="100"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+ 
+    <h2>Comment: {{ offer.comment }}</h2>
+    <h2>Status: {{ offer.status }}</h2>
+    <h2>Created at: {{ offer.created_at }}</h2>
+        {% if can_accept == True and is_waiting == True %}
+        {% if is_waiting == True %}
+            <a href="accept"><button>Accept</button></a>
+            <a href="decline"><button>Decline</button></a>
+        {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

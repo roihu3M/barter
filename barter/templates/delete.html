@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if does_not_exist == True %}
+        <h2>Ad doesn't exist</h2>
+    {% else %} 
+        {% if can_edit == False %} 
+        <h2>Permission denied</h2>
+        {% else %}
+            <h2>Are you sure you want to delete the ad?</h2>
+            <form action="{% url 'delete' ad_id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Yes</button>
+            </form>
+            <a href="/ad/{{ ad_id }}"><button>No</button></a>
+            {% endif %}
+    {% endif %}
+{% endblock %}

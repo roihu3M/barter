@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if does_not_exist == True %}
+        <span>Offer doesn't exist</span>
+    {% else %} 
+        {% if can_accept == False %} 
+        <span>Permission denied</span>
+        {% else %}
+        <span>yeah.</span>
+        {% endif %}
+    {% endif %}
+{% endblock %}
